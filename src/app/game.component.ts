@@ -88,7 +88,7 @@ export class GameComponent implements AfterViewInit {
       this.addApple();
     }
 
-    this.apple.src = 'https://opengameart.org/sites/default/files/apple_3.png';
+    this.apple.src = 'https://opengameart.org/sites/default/files/Apple_2.png';
     this.apple.onload = () =>
       window.requestAnimationFrame(
         (time: DOMHighResTimeStamp) => this.animationFrame(time));
@@ -98,7 +98,7 @@ export class GameComponent implements AfterViewInit {
     const now = new Date().getTime();
     this.timeCounter += now - this.lastFrameTime;
     this.lastFrameTime = now;
-    const speed = 4 + 0.3 * this.snake.length;
+    const speed = Math.min(3 + 0.3 * this.snake.length, 6);
     const nextFrame = 1000.0 / speed;
     if (this.timeCounter > nextFrame) {
       this.timeCounter -= nextFrame;
@@ -157,9 +157,9 @@ export class GameComponent implements AfterViewInit {
 
   drawApple(pos: Point): void {
     this.context!.drawImage(this.apple,
-                            pos.x * this.cellSize,
-                            pos.y * this.cellSize,
-                            this.cellSize, this.cellSize);
+                            (pos.x - 0.4) * this.cellSize,
+                            (pos.y - 0.25) * this.cellSize,
+                            this.cellSize*1.8, this.cellSize*1.8);
   }
 
   eatApple(pos: Point): boolean {
